@@ -1,77 +1,33 @@
-// Union types
-// function combine(input1: number | string, input2: number | string) {
-//     let result;
-//     if (typeof input1 === 'number' && typeof input2 === 'number') {
-//         result = input1 + input2;
-//     } else {
-//         result = input1.toString() + input2.toString();
-//     }
-//     return result;
-// }
+const add = (n1: number, n2: number) => {
+    return n1 + n2;
+};
 
-// const combinedAges = combine(30, 26);
-// console.log(combinedAges);
+const printResult = (num: number) => {
+    console.log('Result: ', num);
+};
 
-// const combinedNames = combine('A', 'B');
-// console.log(combinedNames);
+// Can be done but better not to use it, instead make th return type of the function is void
+// const printResult = (num: number): undefined => {
+//     console.log('Result: ', num);
+//     return;
+// };
 
-// Literal types
-// 'as-number' | 'as-text' <--- union + literal
-// function combine(
-//     input1: number | string,
-//     input2: number | string,
-//     resultConversion: 'as-number' | 'as-text'
-// ) {
-//     let result;
-//     if (
-//         (typeof input1 === 'number' && typeof input2 === 'number') ||
-//         resultConversion === 'as-number'
-//     ) {
-//         result = +input1 + +input2;
-//     } else {
-//         result = input1.toString() + input2.toString();
-//     }
-//     return result;
-//     // if (resultConversion === 'as-number') {
-//     //     return +result;
-//     // } else {
-//     //     return result.toString();
-//     // }
-// }
+printResult(add(5, 12));
 
-// const combinedAges = combine(30, 26, 'as-number');
-// console.log(combinedAges);
+// Function types
+let combineValues: (a: number, b: number) => number;
 
-// const combinedStringAges = combine('30', '26', 'as-number');
-// console.log(combinedStringAges);
+combineValues = add;
+// combineValues = printResult;
+// combineValues = 5;
 
-// const combinedNames = combine('A', 'B', 'as-text');
-// console.log(combinedNames);
+console.log(combineValues(8, 8));
 
-// Type alias
-type Combinable = number | string;
-type Conversion = 'as-number' | 'as-text';
+const addAndHandle = (n1: number, n2: number, cb: (num: number) => void) => {
+    const result = n1 + n2;
+    cb(result);
+};
 
-function combine(input1: Combinable, input2: Combinable, resultConversion: Conversion) {
-    let result;
-    if ((typeof input1 === 'number' && typeof input2 === 'number') || resultConversion === 'as-number') {
-        result = +input1 + +input2;
-    } else {
-        result = input1.toString() + input2.toString();
-    }
-    return result;
-    // if (resultConversion === 'as-number') {
-    //     return +result;
-    // } else {
-    //     return result.toString();
-    // }
-}
-
-const combinedAges = combine(30, 26, 'as-number');
-console.log(combinedAges);
-
-const combinedStringAges = combine('30', '26', 'as-number');
-console.log(combinedStringAges);
-
-const combinedNames = combine('A', 'B', 'as-text');
-console.log(combinedNames);
+addAndHandle(10, 20, (result) => {
+    console.log(result);
+});
